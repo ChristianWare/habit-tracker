@@ -1,0 +1,67 @@
+.quick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px 170px auto;
+  gap: 0.8rem;
+}
+
+.compact {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.compact .quickTitle,
+.compact > button {
+  grid-column: 1 / -1;
+}
+
+@media screen and (max-width: 768px) {
+  .quick {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .quickTitle {
+    grid-column: 1 / -1;
+  }
+
+  .quick > button {
+    grid-column: 1 / -1;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  padding: 1.6rem;
+  border: 1px solid var(--champagne);
+  border-radius: 8px;
+  background-color: var(--ivory);
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.formActions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 568px) {
+  .form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

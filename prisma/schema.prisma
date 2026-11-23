@@ -1,0 +1,229 @@
+// prisma/schema.prisma
+//
+// One person uses this app, so nothing here belongs to a "user": the Owner
+// row is only the login. Days are stored as "YYYY-MM-DD" strings in your
+// time zone (APP_TIMEZONE), so a check-off at 11pm never slides into the
+// next day.
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  engineType    = "library"
+  binaryTargets = ["native", "darwin", "darwin-arm64", "rhel-openssl-3.0.x"]
+}
+
+enum HabitKind {
+  CHECK // done or not
+  NUMBER // log a number (weight, calls); done when it reaches the target
+  FOOD_LOG // done by itself on any day you log food
+}
+
+enum ScheduleType {
+  DAYS // on chosen days of the week
+  WEEKLY_COUNT // a number of times each week, any days
+}
+
+enum Repeat {
+  NONE
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+enum Meal {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+/// The login. There is exactly one, made by `npm run set-password`.
+model Owner {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String    @default("")
+  passwordHash   String
+  failedAttempts Int       @default(0)
+  lockedUntil    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+/// App-wide settings. One row, id "app".
+model Settings {
+  id           String   @id @default("app")
+  calorieGoal  Int      @default(3000)
+  /// Grams a day. Empty: suggested from your latest weight.
+  proteinGoal  Int?
+  /// Grams of protein per pound used for the suggestion.
+  proteinPerLb Float    @default(0.8)
+  /// The meat rotation: week 1, 2, 3 of the month; every other week is meatless.
+  meatRotation Boolean  @default(true)
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  /// A hex colour, e.g. #FF9F00.
+  color     String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  primaryHabits Habit[] @relation("PrimaryCategory")
+  extraHabits   Habit[] @relation("ExtraCategories")
+  tasks         Task[]  @relation("TaskCategory")
+  extraTasks    Task[]  @relation("TaskExtraCategories")
+}
+
+model Habit {
+  id          String       @id @default(cuid())
+  name        String
+  notes       String?
+  kind        HabitKind    @default(CHECK)
+  /// NUMBER habits: the unit ("lbs", "calls") and, if any, the target.
+  unit        String?
+  target      Float?
+  schedule    ScheduleType @default(DAYS)
+  /// 0 = Sunday … 6 = Saturday. Used when schedule = DAYS.
+  daysOfWeek  Int[]        @default([0, 1, 2, 3, 4, 5, 6])
+  /// Used when schedule = WEEKLY_COUNT.
+  timesPerWeek Int?
+  /// A note for a given weekday, e.g. {"1": "Kitchen"}: what to focus on that day.
+  dayNotes    Json?
+  /// Habits with the same group show together on Today ("Morning routine").
+  group       String?
+  /// The meatless habit: follows the meat rotation.
+  meatRule    Boolean      @default(false)
+  /// The first day it counts. Nothing before it is due or missed.
+  startDate   String
+  archivedAt  DateTime?
+  sortOrder   Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  categoryId String
+  category   Category   @relation("PrimaryCategory", fields: [categoryId], references: [id])
+  categories Category[] @relation("ExtraCategories")
+  logs       HabitLog[]
+
+  @@index([archivedAt])
+}
+
+model HabitLog {
+  id        String   @id @default(cuid())
+  habitId   String
+  date      String
+  done      Boolean  @default(true)
+  value     Float?
+  /// The meatless habit: this day was the week's planned meat meal.
+  plannedMeal Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@unique([habitId, date])
+  @@index([date])
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  title       String
+  notes       String?
+  /// Empty: not scheduled yet (your inbox).
+  dueDate     String?
+  repeat      Repeat    @default(NONE)
+  /// One-time tasks: when it was finished. Repeating tasks move their due date instead.
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  categoryId  String?
+  category    Category?        @relation("TaskCategory", fields: [categoryId], references: [id], onDelete: SetNull)
+  categories  Category[]       @relation("TaskExtraCategories")
+  completions TaskCompletion[]
+
+  @@index([dueDate])
+}
+
+model TaskCompletion {
+  id     String @id @default(cuid())
+  taskId String
+  date   String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([date])
+}
+
+model MoodLog {
+  id        String   @id @default(cuid())
+  date      String   @unique
+  score     Int
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// A food saved for one-tap logging. Numbers are per serving.
+model Food {
+  id         String   @id @default(cuid())
+  name       String
+  serving    String   @default("1 serving")
+  calories   Float
+  protein    Float    @default(0)
+  carbs      Float    @default(0)
+  fat        Float    @default(0)
+  sugar      Float    @default(0)
+  addedSugar Float    @default(0)
+  fiber      Float    @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  mealItems SavedMealItem[]
+}
+
+/// Several foods logged together with one tap (your sea moss shake).
+model SavedMeal {
+  id        String          @id @default(cuid())
+  name      String
+  meal      Meal            @default(BREAKFAST)
+  createdAt DateTime        @default(now())
+  items     SavedMealItem[]
+}
+
+model SavedMealItem {
+  id       String    @id @default(cuid())
+  mealId   String
+  foodId   String
+  servings Float     @default(1)
+  meal     SavedMeal @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  food     Food      @relation(fields: [foodId], references: [id], onDelete: Cascade)
+}
+
+/// One thing eaten on a day. Numbers are copied in (already times servings),
+/// so editing a saved food later never changes your history.
+model FoodEntry {
+  id         String   @id @default(cuid())
+  date       String
+  meal       Meal     @default(SNACK)
+  name       String
+  servings   Float    @default(1)
+  calories   Float
+  protein    Float    @default(0)
+  carbs      Float    @default(0)
+  fat        Float    @default(0)
+  sugar      Float    @default(0)
+  addedSugar Float    @default(0)
+  fiber      Float    @default(0)
+  foodId     String?
+  createdAt  DateTime @default(now())
+
+  @@index([date])
+}

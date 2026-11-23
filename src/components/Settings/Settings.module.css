@@ -1,0 +1,108 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  align-items: start;
+}
+
+@media screen and (max-width: 1268px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem 2rem;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+@media screen and (max-width: 568px) {
+  .form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.1rem;
+  accent-color: var(--midnight);
+}
+
+.check strong {
+  font-family: var(--SofiaSansBold);
+  font-weight: normal;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.inline .input {
+  width: 90px;
+}
+
+.cats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.catList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  list-style: none;
+}
+
+.catRow {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.color {
+  width: 44px;
+  height: 44px;
+  padding: 2px;
+  border: 1px solid var(--stroke);
+  border-radius: 4px;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.catBtns {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-left: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}

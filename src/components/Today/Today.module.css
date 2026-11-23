@@ -1,0 +1,333 @@
+/* Today's lists: rows with a big check box, as on the dashboards' cards. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 2.4rem;
+  align-items: start;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+@media screen and (max-width: 1268px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.blockTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.count {
+  margin-left: auto;
+  font-family: var(--SofiaSansBold);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+}
+
+.banner {
+  padding: 1.4rem 1.6rem;
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+  background-color: var(--white);
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--midnight);
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--midnight);
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.check:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.check:disabled {
+  cursor: default;
+}
+
+.check svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 3;
+}
+
+.checkRound {
+  border-radius: 50%;
+}
+
+.checkOn {
+  border-color: var(--gold);
+  background-color: var(--gold);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--SofiaSansBold);
+  font-size: 1.8rem;
+  line-height: 1.25;
+}
+
+.rowDone .name {
+  color: var(--steel);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+}
+
+.metaText {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  color: var(--slate);
+}
+
+.metaGood {
+  font-family: var(--SofiaSansBold);
+  color: var(--darkGreen);
+}
+
+.metaBad {
+  font-family: var(--SofiaSansBold);
+  color: var(--danger);
+}
+
+.focus {
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  background-color: var(--champagne);
+  font-family: var(--SofiaSansBold);
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+.streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--SofiaSansBold);
+  font-size: 1.3rem;
+  color: var(--bronze);
+}
+
+.streak svg,
+.inlineIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.meatLine,
+.notes {
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: var(--slate);
+}
+
+.meatLine strong {
+  font-family: var(--SofiaSansBold);
+  font-weight: normal;
+  color: var(--midnight);
+}
+
+.numberForm {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.numberInput {
+  width: 84px;
+  text-align: right;
+}
+
+.unit {
+  font-size: 1.4rem;
+  color: var(--slate);
+}
+
+.sideBtn {
+  white-space: normal;
+  text-align: right;
+  max-width: 150px;
+  line-height: 1.2;
+}
+
+.rowActions {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.btnIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* The number form and side buttons drop under the name on phones. */
+@media screen and (max-width: 568px) {
+  .row {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .numberForm,
+  .sideBtn,
+  .rowActions {
+    grid-column: 2;
+  }
+
+  .sideBtn {
+    justify-self: start;
+    max-width: none;
+    text-align: left;
+  }
+
+  .name {
+    font-size: 1.7rem;
+  }
+}
+
+/* ── Side cards ── */
+
+.meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.meterTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.4rem;
+  color: var(--slate);
+}
+
+.meterTop strong {
+  font-family: var(--SofiaSansBold);
+  font-weight: normal;
+  color: var(--midnight);
+}
+
+.track {
+  height: 10px;
+  border-radius: 999px;
+  background-color: var(--lightGray);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--midnight);
+}
+
+.fillGold {
+  background-color: var(--gold);
+}
+
+.soon {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.soon li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--stroke);
+  font-size: 1.5rem;
+}
+
+.soon li:last-child {
+  border-bottom: none;
+}
+
+.soon span:last-child {
+  color: var(--slate);
+  white-space: nowrap;
+}
+
+.allDone {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.6rem;
+  border-radius: 6px;
+  background-color: var(--midnight);
+  color: var(--ivory);
+  font-size: 1.6rem;
+  line-height: 1.4;
+}
+
+.allDone strong {
+  font-family: var(--SofiaSansExtraCondensedExtraBold);
+  font-size: 2.4rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: var(--gold);
+}

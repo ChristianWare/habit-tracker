@@ -1,0 +1,408 @@
+/* ─────────────────────────────────────────────────────────────────────
+   The look of silver-state-demo's signed-in dashboards: midnight ink on
+   white and ivory, one gold accent, Sofia Sans for text and Sofia Sans
+   Extra Condensed in capitals for headings.
+   ───────────────────────────────────────────────────────────────────── */
+
+:root {
+  --midnight: #0b0f1a;
+  --navy: #1c2333;
+  --gold: #ff9f00;
+  --champagne: #e8d9b0;
+  --ivory: #f7f5f0;
+  --slate: #3a4560;
+  --steel: #8a93a6;
+  --bronze: #b86e00;
+  --oxblood: #6b2633;
+
+  --white: #ffffff;
+  --stroke: #dedbd2;
+  --lightGray: #ecebe6;
+
+  --danger: #b42318;
+  --green: #16a34a;
+  --darkGreen: #0b7547;
+  --yellow: #ffca44;
+  --darkYellow: #745000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--ivory);
+  font-family: var(--SofiaSansRegular), Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--midnight);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+fieldset {
+  min-width: 0;
+  border: 0;
+}
+
+legend {
+  padding: 0;
+  margin-bottom: 0.8rem;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--SofiaSansExtraCondensedExtraBold);
+  font-weight: normal;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+h1,
+.h1 {
+  font-size: 56px;
+  line-height: 0.88em;
+}
+
+h2,
+.h2 {
+  font-size: 32px;
+  line-height: 0.92em;
+}
+
+h3,
+.h3 {
+  font-size: 2.4rem;
+  line-height: 0.95em;
+}
+
+::selection {
+  background: var(--champagne);
+  color: var(--midnight);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+@media screen and (max-width: 568px) {
+  h1,
+  .h1 {
+    font-size: 44px;
+  }
+
+  h2,
+  .h2 {
+    font-size: 28px;
+  }
+}
+
+/* ── Panels and card titles ── */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2rem;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  background-color: var(--white);
+}
+
+.panelIvory {
+  border-color: var(--champagne);
+  background-color: var(--ivory);
+}
+
+/* Condensed caps over a midnight rule, like the site's panels. */
+.cardTitle {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--midnight);
+  font-family: var(--SofiaSansExtraCondensedExtraBold);
+  font-size: 2.4rem;
+  line-height: 0.95em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+.cardTitle small {
+  font-family: var(--SofiaSansRegular);
+  font-size: 1.4rem;
+  line-height: 1.2;
+  text-transform: none;
+  color: var(--slate);
+}
+
+/* Small bold caps: field labels, group labels. */
+.label {
+  font-family: var(--SofiaSansBold);
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+.miniNote {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: var(--slate);
+}
+
+.empty {
+  padding: 1.6rem;
+  border: 1px dashed var(--stroke);
+  border-radius: 6px;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--slate);
+  text-align: center;
+}
+
+/* ── Fields ── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 1.2rem;
+  border: 1px solid var(--stroke);
+  border-radius: 4px;
+  background-color: var(--white);
+  font-family: var(--SofiaSansRegular);
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--midnight);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.textarea {
+  min-height: 88px;
+  padding: 1rem 1.2rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.select {
+  padding-right: 4rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b0f1a' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1.2rem center;
+  background-size: 16px 16px;
+  cursor: pointer;
+}
+
+.input:hover:not(:disabled),
+.select:hover:not(:disabled),
+.textarea:hover:not(:disabled) {
+  border-color: var(--steel);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 159, 0, 0.25);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--steel);
+}
+
+/* ── Buttons ── */
+
+.primaryBtn,
+.secondaryBtn,
+.dangerBtn,
+.goldBtn,
+.ghostBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-height: 40px;
+  padding: 0 1.4rem;
+  border: 1px solid var(--stroke);
+  border-radius: 4px;
+  font-family: var(--SofiaSansRegular);
+  font-size: 1.5rem;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.primaryBtn {
+  border-color: var(--midnight);
+  background: var(--midnight);
+  color: var(--ivory);
+}
+
+.primaryBtn:hover:not(:disabled) {
+  border-color: var(--navy);
+  background: var(--navy);
+}
+
+.secondaryBtn {
+  background: var(--white);
+  color: var(--midnight);
+}
+
+.secondaryBtn:hover:not(:disabled) {
+  border-color: var(--midnight);
+}
+
+.goldBtn {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--midnight);
+}
+
+.goldBtn:hover:not(:disabled) {
+  border-color: var(--midnight);
+}
+
+.dangerBtn {
+  border-color: var(--danger);
+  background: var(--white);
+  color: var(--danger);
+}
+
+.dangerBtn:hover:not(:disabled) {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.ghostBtn {
+  min-height: 36px;
+  padding: 0 1rem;
+  border-color: transparent;
+  color: var(--slate);
+}
+
+.ghostBtn:hover:not(:disabled) {
+  border-color: var(--stroke);
+  color: var(--midnight);
+}
+
+.primaryBtn:disabled,
+.secondaryBtn:disabled,
+.goldBtn:disabled,
+.dangerBtn:disabled,
+.ghostBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Midnight text link with a gold rule. */
+.textLink {
+  font-family: var(--SofiaSansBold);
+  color: var(--midnight);
+  border-bottom: 1px solid var(--gold);
+  white-space: nowrap;
+}
+
+.textLink:hover {
+  color: var(--bronze);
+}
+
+/* ── Tags ── */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  background-color: var(--white);
+  font-family: var(--SofiaSansBold);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--midnight);
+}
+
+.dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+  .input,
+  .select,
+  .textarea {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

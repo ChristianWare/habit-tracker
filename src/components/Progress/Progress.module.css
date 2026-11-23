@@ -1,0 +1,166 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.ranges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  width: fit-content;
+  padding: 0.4rem;
+  border-radius: 6px;
+  background: var(--lightGray);
+}
+
+.range {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 1.6rem;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  color: var(--slate);
+}
+
+.rangeOn {
+  background: var(--white);
+  font-family: var(--SofiaSansBold);
+  color: var(--midnight);
+  box-shadow: 0 1px 2px rgba(11, 15, 26, 0.1);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 2.4rem;
+  align-items: start;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+@media screen and (max-width: 1268px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.insight {
+  padding: 1.6rem;
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+  background: var(--ivory);
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+.insight strong {
+  font-family: var(--SofiaSansBold);
+  font-weight: normal;
+}
+
+.catRows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.catRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.catTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.5rem;
+}
+
+.catName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--SofiaSansBold);
+}
+
+.catPct {
+  font-family: var(--SofiaSansExtraCondensedBold);
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--lightGray);
+  overflow: hidden;
+}
+
+.track span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 0 0.8rem 1rem 0;
+  font-family: var(--SofiaSansBold);
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.table td {
+  padding: 1rem 0.8rem 1rem 0;
+  border-top: 1px solid var(--stroke);
+  font-size: 1.5rem;
+}
+
+.table .num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  font-size: 1.3rem;
+  color: var(--slate);
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.swatchBar {
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--champagne);
+}
+
+.swatchLine {
+  width: 18px;
+  height: 3px;
+  background: var(--midnight);
+}

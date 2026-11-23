@@ -1,0 +1,278 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 2.4rem;
+  align-items: start;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+@media screen and (max-width: 1268px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.dayNav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.dayNav strong {
+  min-width: 140px;
+  font-family: var(--SofiaSansBold);
+  font-weight: normal;
+  text-align: center;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.4rem;
+  border-radius: 6px;
+  background: var(--lightGray);
+}
+
+.tab {
+  min-height: 36px;
+  padding: 0 1.4rem;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  color: var(--slate);
+}
+
+.tabOn {
+  background: var(--white);
+  font-family: var(--SofiaSansBold);
+  color: var(--midnight);
+  box-shadow: 0 1px 2px rgba(11, 15, 26, 0.1);
+}
+
+.mealPick {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.mealPick .select {
+  width: auto;
+  min-width: 140px;
+}
+
+.foodList {
+  display: flex;
+  flex-direction: column;
+  max-height: 460px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.foodItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.foodItem:last-child {
+  border-bottom: none;
+}
+
+.foodText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.foodText strong {
+  font-family: var(--SofiaSansBold);
+  font-weight: normal;
+  font-size: 1.6rem;
+}
+
+.foodText span {
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: var(--slate);
+}
+
+.servings {
+  text-align: center;
+  padding: 0 0.6rem;
+}
+
+.newForm {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.span2 {
+  grid-column: 1 / -1;
+}
+
+.saveToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.saveToggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--midnight);
+}
+
+@media screen and (max-width: 640px) {
+  .newForm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── The day ── */
+
+.mealBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.mealHead {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.mealCals {
+  font-family: var(--SofiaSansBold);
+  font-size: 1.4rem;
+}
+
+.entries {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.4rem 1.2rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--stroke);
+}
+
+.entry:last-child {
+  border-bottom: none;
+}
+
+.entryName {
+  font-size: 1.5rem;
+}
+
+.entryX {
+  color: var(--slate);
+}
+
+.entryNums {
+  font-size: 1.3rem;
+  color: var(--slate);
+  white-space: nowrap;
+}
+
+.entryBtns {
+  display: flex;
+}
+
+@media screen and (max-width: 568px) {
+  .entry {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .entryNums {
+    grid-column: 1;
+    grid-row: 2;
+    white-space: normal;
+  }
+
+  .entry > button,
+  .entryBtns {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+.saveMealBtn {
+  align-self: flex-start;
+  padding-left: 0;
+  color: var(--bronze);
+}
+
+.nameMeal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.6rem;
+}
+
+.manage summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.manage summary::-webkit-details-marker {
+  display: none;
+}
+
+.manage:not([open]) summary {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.editFood {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 1rem;
+  padding: 1.2rem;
+  margin: 0.6rem 0;
+  border: 1px solid var(--champagne);
+  border-radius: 6px;
+  background: var(--ivory);
+}
+
+.editFood label:nth-child(-n + 2) {
+  grid-column: span 2;
+}
+
+.editActions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.8rem;
+}

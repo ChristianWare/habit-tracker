@@ -1,0 +1,55 @@
+.faces {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 64px;
+  padding: 0.8rem 0.2rem 0.6rem;
+  border: 1px solid var(--stroke);
+  border-radius: 6px;
+  background-color: var(--white);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.face:hover {
+  border-color: var(--midnight);
+}
+
+.faceOn {
+  border-color: var(--midnight);
+  background-color: var(--ivory);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px var(--midnight);
+}
+
+.faceNum {
+  font-family: var(--SofiaSansBold);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.after {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 640px) {
+  .faces {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .after {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
